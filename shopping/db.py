@@ -18,8 +18,8 @@ def get_hash(password, salt):
     hashed_password = hashlib.pbkdf2_hmac('sha256', b_pw, b_salt, 1246).hex()
     return hashed_password
 
-def insert_user(user_name, password):
-    sql = 'INSERT INTO user_sample VALUES (default, %s, %s, %s)'
+def insert_user(user_name, mail, password):
+    sql = 'INSERT INTO login1 VALUES (default, %s, %s, %s,%s)'
     salt = get_salt()
     hashed_password = get_hash(password, salt)
     
@@ -27,8 +27,8 @@ def insert_user(user_name, password):
         connection = get_connection()
         cursor = connection.cursor()
         
-        cursor.execute(sql, (user_name, hashed_password, salt))
-        count = cursor.rowcount # 更新内容を取得
+        cursor.execute(sql, (user_name, mail, hashed_password, salt))
+        count = cursor.rowcount 
         connection.commit()
     except psycopg2.DatabaseError:
         count = 0
@@ -39,7 +39,7 @@ def insert_user(user_name, password):
     return count
 
 def login(user_name, password):
-    sql = 'SELECT hashed_password, salt FROM user_sample WHERE name = %s'
+    sql = 'SELECT hashed_password, salt FROM login1 WHERE name = %s'
     flg = False
 
     try :
@@ -61,4 +61,42 @@ def login(user_name, password):
         cursor.close()
         connection.close()
     
+    return flg
+
+def insert_merchan(merchan_name, price):
+    sql = 'INSERT INTO merchan VALUES (default, %s, %s)'
+    
+    try :
+        connection = get_connection()
+        cursor = connection.cursor()
+        
+        cursor.execute(sql, (merchan_name, price))
+        count = cursor.rowcount 
+        connection.commit()
+    except psycopg2.DatabaseError:
+        count = 0
+    finally:
+        cursor.close()
+        connection.close()
+        
+    return count
+
+def admin_login(user_name, password):
+    sql = "SELECT hashed_password, salt FROM shop_user WHERE name = 'hatakeyama'"
+    flg = False
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(sql, (user_name))
+        admin = cursor.fetchone()
+        if admin != None:
+            salt = admin[1]
+        hashed_password = get_hash(password, salt)
+        if hashed_password == admin[0]:
+                flg = True
+    except psycopg2.DatabaseError:
+        flg = False
+    finally:
+        cursor.close()
+        connection.close()
     return flg

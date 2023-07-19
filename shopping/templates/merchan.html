@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品追加</title>
+</head>
+<body>
+    <h2>商品追加</h2>
+    {% if error != null %}
+    <p style="color:red;">{{error}}</p>
+{% endif %}
+<form action="{{url_for('merchan_exe')}}" method="post">
+    商品名：<input type="text" name="merchan_name"><br>
+    価格：<input type="text" name="price"><br>
+    <button type="submit">追加</button>
+    <a href="{{url_for('merchan_list')}}">商品の一覧</a><br>
+</body>
+</html>
