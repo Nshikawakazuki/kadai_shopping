@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>商品購入</h1>
+    <form action="{{ url_for('purchase_goods_exe') }}" method="POST">
+        <p>商品ID: {{ goods_id }}</p>
+        <p>商品名: {{ goods_name }}</p>
+        <p>価格: {{ price }}</p>
+        <label for="quantity">数量:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required>
+        <button type="submit">購入</button>
+    </form>
+</body>
+</html>

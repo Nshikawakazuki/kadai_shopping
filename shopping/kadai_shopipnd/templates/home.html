@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>ECサイト</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3">ECサイト</h1>
+        <form action="{{url_for('search_goods_exe')}}" method="post" class="mb-3">
+            <input type="text" name="name">
+            <input type="submit" value="検索" class="btn btn-primary">
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>商品名</th>
+                    <th>価格(円)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for good in goods %}
+                <tr>
+                    <td>{{ good[0] }}</td>
+                    <td>{{ good[1] }}</td>
+                    <td>{{ good[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{url_for('buy_goods')}}" class="btn btn-success">商品購入</a>
+        <a href="{{url_for('admin_logout')}}" class="btn btn-secondary">ログアウト</a>
+    </div>
+</body>
+</html>

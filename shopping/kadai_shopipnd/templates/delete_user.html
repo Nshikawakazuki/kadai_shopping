@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>削除したいユーザーのIDを入力してください</h3>
+    <form action="{{url_for('delete_user_exe')}}" method="post">
+        ユーザーID:<input type="text" name="id"><br>
+        <button type="submit">削除</button>
+    </form>
+    <div class="mt-3">
+        <a href="{{url_for('admin_mypage')}}" class="btn btn-secondary">戻る</a>
+    </div>
+
+</body>
+</html>

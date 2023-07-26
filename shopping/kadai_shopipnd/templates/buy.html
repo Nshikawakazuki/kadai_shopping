@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購入画面</title>
+</head>
+<body>
+    <h3>商品IDを入力してください</h3>
+    <form action="{{url_for('buy_exe')}}" method="post">
+        商品ID:<input type="text" name="id"><br>
+        <button type="submit">購入</button>
+    </form>
+    <a href="{{url_for('home')}}">戻る</a>
+
+</body>
+</html>
